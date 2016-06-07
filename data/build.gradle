@@ -42,6 +42,13 @@ dependencies {
     apt 'com.google.dagger:dagger-compiler:2.4'
     compile 'com.google.dagger:dagger:2.4'
     provided 'javax.annotation:jsr250-api:1.0'
+    // Http client
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-jackson:2.0.2'
+    // Serialization
+    compile 'com.fasterxml.jackson.core:jackson-core:2.7.3'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.3'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
     // Test
     testCompile 'junit:junit:4.12'
     // Android compat
