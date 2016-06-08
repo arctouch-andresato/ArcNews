@@ -1,8 +1,8 @@
 package arctouch.com.data.rss;
 
 import com.arctouch.arcnews.domain.rss.Item;
-import com.arctouch.arcnews.domain.rss.Rss;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +10,12 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import arctouch.com.data.infra.ObservableUtil;
+import arctouch.com.data.infra.RssService;
+import lombok.val;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 import rx.Observable;
 
 @Singleton
@@ -36,7 +40,12 @@ public class PostsRepository implements com.arctouch.arcnews.domain.rss.PostsRep
 
     private Observable<List<Item>> refresh() {
         return Observable.<List<Item>>create(subscriber -> {
-            List<Item> posts = retrievePostList();
+            List<Item> posts = null;
+            try {
+                posts = retrievePostList();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             postListCache = posts;
             subscriber.onNext(posts);
@@ -44,14 +53,23 @@ public class PostsRepository implements com.arctouch.arcnews.domain.rss.PostsRep
         });
     }
 
-    private List<Item> retrievePostList() {
+    private List<Item> retrievePostList() throws IOException{
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://en.blog.wordpress.com/feed/")
-                .addConverterFactory(JacksonConverterFactory.create())
+                .baseUrl("https://en.blog.wordpress.com/")
+                //.baseUrl("http://feeds.reuters.com/news/")
+                .client(client)
+                .addConverterFactory(SimpleXmlConverterFactory.create())
                 .build();
 
-        Rss rss = retrofit.create(Rss.class);
+        RssService rssService = retrofit.create(RssService.class);
 
-        return rss.getChannel().getItems();
+        val response = rssService.getRss().execute();
+        return response.body().getChannel().getItems();
     }
 }

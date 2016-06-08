@@ -11,6 +11,10 @@ dependencies {
     // Lang
     compile 'org.projectlombok:lombok:1.16.8'
     compile 'io.reactivex:rxjava:1.1.3'
+    // Http client
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-jackson:2.0.2'
+    compile 'com.squareup.retrofit2:converter-simplexml:2.0.0'
     // Test
     testCompile 'junit:junit:4.12'
 }
