@@ -11,25 +11,20 @@ import javax.inject.Singleton;
 
 import arctouch.com.data.infra.ObservableUtil;
 import arctouch.com.data.infra.RssService;
+import lombok.RequiredArgsConstructor;
 import lombok.val;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 import rx.Observable;
 
 @Singleton
-//@RequiredArgsConstructor(onConstructor = @__(@Inject))
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class PostsRepository implements com.arctouch.arcnews.domain.rss.PostsRepository{
 
     private final ObservableUtil observables;
 
     private List<Item> postListCache = new ArrayList<>();
 
-    @Inject
-    public PostsRepository(ObservableUtil observables) {
-        this.observables = observables;
-    }
 
     @Override
     public Observable<List<Item>> getPostList() {
@@ -55,15 +50,14 @@ public class PostsRepository implements com.arctouch.arcnews.domain.rss.PostsRep
 
     private List<Item> retrievePostList() throws IOException{
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+//        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+//        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://en.blog.wordpress.com/")
-                //.baseUrl("http://feeds.reuters.com/news/")
-                .client(client)
+                //.client(client)
                 .addConverterFactory(SimpleXmlConverterFactory.create())
                 .build();
 

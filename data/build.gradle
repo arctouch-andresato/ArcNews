@@ -28,6 +28,31 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        flavorDefault {
+        }
+        flavorTest{
+
+        }
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ["src/main/java"]
+            res.srcDirs = ['src/main/res']
+        }
+
+        flavorDefault {
+            java.srcDirs = ["src/flavorDefault/java"]
+            res.srcDirs = ['src/flavorDefault/res']
+        }
+
+        flavorTest {
+            java.srcDirs = ["src/flavorTest/java"]
+            res.srcDirs = ['src/flavorTest/res']
+        }
+    }
 }
 
 dependencies {

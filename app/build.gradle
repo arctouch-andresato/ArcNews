@@ -37,6 +37,30 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        flavorDefault {
+            applicationId 'arctouch.com.flavor1'
+        }
+        flavorTest{
+
+        }
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ["src/main/java"]
+            res.srcDirs = ['src/main/res']
+        }
+
+        flavorDefault {
+
+        }
+
+        flavorTest {
+
+        }
+    }
 }
 
 dependencies {
