@@ -1,5 +1,6 @@
 package com.arctouch.arcnews.data;
 
+import com.arctouch.arcnews.data.infra.InfraModule;
 import com.arctouch.arcnews.domain.rss.Item;
 import com.arctouch.arcnews.data.infra.ObservableUtil;
 import com.arctouch.arcnews.data.rss.PostsRepository;
@@ -19,7 +20,7 @@ public class ExampleUnitTest {
     @Test
     public void retrievingPosts_isCorrect() throws Exception {
         posts = new ArrayList<>();
-        PostsRepository repo = new PostsRepository(new ObservableUtil());
+        PostsRepository repo = new PostsRepository(new ObservableUtil(new InfraModule().providesSchedulingTransformer()));
         repo.getPostList().forEach(items-> {
                     for (Item item: items
                     ){

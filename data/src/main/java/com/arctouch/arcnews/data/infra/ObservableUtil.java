@@ -1,14 +1,17 @@
 package com.arctouch.arcnews.data.infra;
 
+import javax.inject.Inject;
+
+import lombok.RequiredArgsConstructor;
 import rx.Observable;
 import rx.Observable.Transformer;
-import rx.schedulers.Schedulers;
 
-//@RequiredArgsConstructor(onConstructor = @__(@Inject))
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class ObservableUtil {
 
-    private final Transformer<Observable, Observable> schedulersTransformer = observable -> observable.subscribeOn(Schedulers.immediate())
-            .observeOn(Schedulers.immediate());
+    private final Transformer<Observable, Observable> schedulersTransformer;
+//            = observable -> observable.subscribeOn(Schedulers.immediate())
+//            .observeOn(Schedulers.immediate());
 
     @SuppressWarnings("unchecked")
     public <T> Transformer<T, T> defaultSchedulers() {
