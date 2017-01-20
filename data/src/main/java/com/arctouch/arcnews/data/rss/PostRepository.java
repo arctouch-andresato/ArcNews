@@ -1,8 +1,14 @@
 package com.arctouch.arcnews.data.rss;
 
-import com.arctouch.arcnews.domain.rss.Item;
 import com.arctouch.arcnews.data.infra.ObservableUtil;
 import com.arctouch.arcnews.data.infra.RssService;
+import com.arctouch.arcnews.domain.rss.Item;
+
+import lombok.RequiredArgsConstructor;
+import lombok.val;
+import retrofit2.Retrofit;
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
+import rx.Observable;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,15 +17,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import lombok.RequiredArgsConstructor;
-import lombok.val;
-import retrofit2.Retrofit;
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
-import rx.Observable;
-
 @Singleton
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
-public class PostsRepository implements com.arctouch.arcnews.domain.rss.PostsRepository{
+public class PostRepository implements com.arctouch.arcnews.domain.rss.PostsRepository{
 
     private final ObservableUtil observables;
 

@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * Created by andresato on 6/14/16.
  */
-public interface NewsListView extends Contextualized {
-    void showData(Observable<List<Item>> groceries);
+public interface PostsListView extends Contextualized {
+    void showData(Observable<List<Item>> items);
 
     void showRefreshProgress();
     void hideRefreshProgress();

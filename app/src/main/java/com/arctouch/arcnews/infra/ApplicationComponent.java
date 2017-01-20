@@ -15,5 +15,5 @@ public interface ApplicationComponent {
     void inject(MainActivity mainActivity);
 
 
-    void inject(PostListFragment splashFragment);
+    void inject(PostListFragment postListFragment);
 }
