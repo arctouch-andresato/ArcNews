@@ -66,6 +66,11 @@ public class PostListFragment extends Fragment implements PostsListView {
         return mainView;
     }
 
+//    @OnClick(R.id.titleItem)
+//    public void onTitleClicked() {
+//        Toast.makeText(getActivity(), "Click!",
+//            Toast.LENGTH_LONG).show();
+//    }
 
 //    @Override
 //    public void onAttach(Context context) {

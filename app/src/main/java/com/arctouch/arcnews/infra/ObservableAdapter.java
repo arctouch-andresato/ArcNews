@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import java.io.Closeable;
@@ -38,6 +39,7 @@ public class ObservableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     subscription = observable
         .subscribe(newItems -> {
+          this.items.clear();
           this.items.addAll(newItems);
           notifyDataSetChanged();
     });
@@ -46,9 +48,11 @@ public class ObservableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
   private class ItemHolder extends RecyclerView.ViewHolder {
 
     TextView title;
+    WebView description;
     public ItemHolder(View itemView) {
       super(itemView);
       title = (TextView) itemView.findViewById(R.id.titleItem);
+      description = (WebView) itemView.findViewById(R.id.descriptionItem);
     }
   }
 
@@ -62,10 +66,25 @@ public class ObservableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
   public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     ItemHolder itemHolder = (ItemHolder)holder;
     itemHolder.title.setText(items.get(position).getTitle());
+    itemHolder.description.loadData(items.get(position).getDescription(), "text/html", "UTF-8");
+    itemHolder.description.setVisibility(View.GONE);
+    itemHolder.title.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        if(itemHolder.description.getVisibility() == View.GONE) {
+          itemHolder.description.setVisibility(View.VISIBLE);
+        } else {
+          itemHolder.description.setVisibility(View.GONE);
+        }
+      }
+    });
   }
 
   @Override
   public int getItemCount() {
     return items.size();
   }
+
+
 }
