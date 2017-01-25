@@ -10,8 +10,6 @@ public interface RssService {
     //@GET("feed/")
     //@GET("reutersmedia/")
 
-    @GET("wiki/createrssfeed" +
-        ".action?types=page&types=blogpost&spaces=conf_all&title=Confluence+RSS+Feed" +
-            "&labelString%3D&excludedSpaceKeys%3D&sort=modified&maxResults=10&timeSpan=5&showContent=true&confirm=Create+RSS+Feed&os_authType=basic")
+    @GET("wiki/createrssfeed.action?pageSubTypes=comment&pageSubTypes=attachment&types=blogpost&spaces=~andre.sato&title=Confluence+RSS+Feed&labelString%3D&excludedSpaceKeys%3D&sort=modified&maxResults=10&timeSpan=5&showContent=true&confirm=Create+RSS+Feed&os_authType=basic")
     Call<Rss> getRss(@Header("Authorization") String authorization);
 }

@@ -66,7 +66,8 @@ public class ObservableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
   public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     ItemHolder itemHolder = (ItemHolder)holder;
     itemHolder.title.setText(items.get(position).getTitle());
-    itemHolder.description.loadData(items.get(position).getDescription(), "text/html", "UTF-8");
+    itemHolder.description.getSettings().setJavaScriptEnabled(true);
+    itemHolder.description.loadData("<style>img{display: inline;height: auto;max-width: 100%;}</style>" + items.get(position).getDescription(), "text/html; charset=utf-8", "UTF-8");
     itemHolder.description.setVisibility(View.GONE);
     itemHolder.title.setOnClickListener(new View.OnClickListener() {
 
@@ -79,6 +80,9 @@ public class ObservableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
       }
     });
+
+    itemHolder.description.setHttpAuthUsernamePassword("arctouch.atlassian.net","", "andre.sato",
+        "arctouch-11");
   }
 
   @Override
